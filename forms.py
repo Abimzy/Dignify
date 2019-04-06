@@ -11,7 +11,6 @@ class UserForm(Form):
     first_name = TextField("First Name")
     last_name = TextField("Last Name")
     email = TextField("Email Address")
-    password = TextField("Password")
     role = TextField()
     avatar = StringField()
     submit = SubmitField("Update")
