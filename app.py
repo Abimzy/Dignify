@@ -2,8 +2,13 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_bootstrap import Bootstrap
 
+from forms import UserForm
+
 #To have access to models
 import models
+
+
+
 
 
 app = Flask(__name__)
@@ -18,12 +23,10 @@ def before_request():
     g.db.connect()
 
 @app.after_request
-def after_request():
+def after_request(response):
     """Close the database connection after each request."""
     g.db.close()
     return response
-
-
 
 
 @app.route('/')
@@ -34,6 +37,12 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html', title="About")
+
+@app.route('/profile')
+def profile():
+    #'form' variable sent to profile template defined here
+    form = UserForm()
+    return render_template('profile.html', title="Profile", form=form)
 
 
 if __name__ == '__main__':
