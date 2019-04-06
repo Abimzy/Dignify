@@ -1,16 +1,31 @@
 from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_bcrypt import check_password_hash
 from flask_bootstrap import Bootstrap
 
 from forms import UserForm
 
 #To have access to models
 import models
+import forms
 
 
 
 app = Flask(__name__)
 app.secret_key = 'uyghbfedivjnfecsvohldfnsjhln'
+
+login_manager = LoginManager()
+## sets up our login for the app
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(userid):
+    try:
+        return models.User.get(models.User.id == userid)
+    except models.DoesNotExist:
+        return None
 
    
 # Handle requests when they come in (before) and when they complete (after)
