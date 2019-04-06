@@ -2,10 +2,29 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_bootstrap import Bootstrap
 
+#To have access to models
+import models
+
 
 app = Flask(__name__)
 app.secret_key = 'uyghbfedivjnfecsvohldfnsjhln'
+
    
+# Handle requests when they come in (before) and when they complete (after)
+@app.before_request
+def before_request():
+    """Connect to the DB before each request."""
+    g.db = models.DATABASE
+    g.db.connect()
+
+@app.after_request
+def after_request():
+    """Close the database connection after each request."""
+    g.db.close()
+    return response
+
+
+
 
 @app.route('/')
 @app.route('/home')
@@ -18,4 +37,6 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+# before app runs, we initialize a connection to the models
+    models.initialize()
+    app.run(debug=True) 
