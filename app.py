@@ -77,6 +77,7 @@ def signup():
         models.User.create_user(
             first_name = form.first_name.data.strip(), 
             last_name = form.last_name.data.strip(), 
+            avatar = form.avatar.data.strip(),
             email = form.email.data.strip(), 
             password = form.password.data.strip()
             )
