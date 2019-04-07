@@ -1,4 +1,7 @@
-<form method="POST" action="" class="form">
+{% extends "layout.html" %}
+
+{% block content %}
+    <form method="POST" action="" class="form">
         {{ form.hidden_tag() }}
         {% for field in form %}
             <div class="field">
@@ -10,5 +13,25 @@
                 {{ field(placeholder=field.label.text) }}
             </div>
         {% endfor %}
-        <button type="submit" id="submit">Signup</button>
+        <button type="submit" class="btn btn-success btn-lg btn-end" id="submit">Signup</button>
     </form>
+
+<style>
+        form.form {
+           text-align: center;
+           height: 85vh;
+            }
+        form input {
+            border:  lightgrey 1px solid;
+            border-radius: 5px;
+            margin: 2px;
+            margin-top: 15px;
+            padding: 13px;
+            width: 45%;
+        }
+        #submit {
+            margin-top: 5px;
+        }
+</style>
+
+{% endblock content %}
