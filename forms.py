@@ -28,13 +28,13 @@ class SignupForm(Form):
             Length(min=2)
             ])
     last_name = StringField(
-        'First Name',
+        'Last Name',
         validators=[
             DataRequired(),
             Length(min=2)
             ])
     avatar = StringField(
-        'Avatar'
+        'Picture (optional)'
         )
     email = StringField(
         'Email',
