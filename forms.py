@@ -33,6 +33,9 @@ class SignupForm(Form):
             DataRequired(),
             Length(min=2)
             ])
+    avatar = StringField(
+        'Avatar'
+        )
     email = StringField(
         'Email',
         validators=[
