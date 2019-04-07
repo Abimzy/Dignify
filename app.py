@@ -69,6 +69,22 @@ def profile():
         return redirect ('/')
     return render_template('profile.html', title="Profile", form=form)
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = forms.SignupForm()
+    if form.validate_on_submit():
+        flash('Your account has been created', 'success')
+        models.User.create_user(
+            first_name = form.first_name.data.strip(), 
+            last_name = form.last_name.data.strip(), 
+            email = form.email.data.strip(), 
+            password = form.password.data.strip()
+            )
+
+        return redirect(url_for('landing')) #return on successful POST request
+    return render_template('signup.html', form=form) #return on successful GET request
+    
+
 
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
