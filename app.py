@@ -15,9 +15,10 @@ import forms
 app = Flask(__name__)
 app.secret_key = 'uyghbfedivjnfecsvohldfnsjhln'
 
+# LoginManager sets up our session for app
 login_manager = LoginManager()
-## sets up our login for the app
 login_manager.init_app(app)
+#sets up default login view 
 login_manager.login_view = 'login'
 
 @login_manager.user_loader
@@ -82,9 +83,32 @@ def signup():
             password = form.password.data.strip()
             )
 
-        return redirect(url_for('landing')) #return on successful POST request
+        return redirect(url_for('landing')) #return on successful POST request/Update to login page
     return render_template('signup.html', form=form) #return on successful GET request
     
+
+
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    form = forms.LoginForm()
+    ## handle the post request
+    if form.validate_on_submit():
+        try:
+            user = models.User.get(models.User.email == form.email.data)
+        except models.DoesNotExist:
+            flash("Your email or password doesn't match", 'error')
+        else:
+            if check_password_hash(user.password, form.password.data):
+                ## login our user/create session
+                login_user(user)
+
+                return redirect(url_for('landing'))#Update this to account.html
+
+            else:
+                flash("Your email or password doesn't match", 'error')
+ 
+    ### get request
+    return render_template('login.html', form=form)
 
 
 if __name__ == '__main__':
