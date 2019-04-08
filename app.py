@@ -75,7 +75,6 @@ def profile():
 def signup():
     form = forms.SignupForm()
     if form.validate_on_submit():
-        flash('Your account has been created', 'success')
         models.User.create_user(
             first_name = form.first_name.data.strip(), 
             last_name = form.last_name.data.strip(), 
@@ -83,7 +82,7 @@ def signup():
             email = form.email.data.strip(), 
             password = form.password.data.strip()
             )
-
+        flash('Your account has been created', 'success')
         return redirect(url_for('login')) #return on successful POST request
     return render_template('signup.html', form=form) #return on successful GET request
     
@@ -103,7 +102,7 @@ def login():
                 ## login our user/create session
                 login_user(user)
 
-                return redirect(url_for('home'))#Update this to account.html
+                return redirect(url_for('account'))
 
             else:
                 flash("Your email or password doesn't match", 'error')
@@ -121,33 +120,46 @@ def logout():
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
-def patient_data():
+def account():
     form = forms.PatientDataForm()
     if form.validate_on_submit():
         models.PatientData.create(
             user = g.user._get_current_object(),
             first_name = form.first_name.data.strip(),
             last_name = form.last_name.data.strip(),
-            gender = form. gender.data.strip(),
+            gender = form.gender.data.strip(),
             date_of_birth = form.date_of_birth.data.strip(),
             picture_upload = form.picture_upload.data.strip(),
             SSN = form.ssn.data.strip(),
             health_insurance_id = form.health_insurance_id.data.strip(),
             address = form.address.data.strip(),
             city = form.city,
-            zip_code = form. zip_code.data.strip(),
+            zip_code = form.zip_code.data.strip(),
             phone_number = form.phone_number.data.strip(),
             medical_history = form.medical_history.data.strip(),
             visit_notes = form.visit_notes.data.strip(),
             dental_record = form.dental_record.data.strip(),
-            current_medication =  form.current_medication.data.strip(),
-            inactive_medication =  form.inactive_medication.data.strip(),
+            current_medication = form.current_medication.data.strip(),
+            inactive_medication = form.inactive_medication.data.strip(),
             file_upload = form.file_upload.data.strip() 
             )
-
+       
         flash('Patient record created', "success")
         return redirect(url_for('account')) #Check to use request.url instead
-    return render_template('account.html', title='Account', form=form)
+    return render_template('account.html', form=form)
+
+
+@app.route('/charts')
+@login_required
+def charts():
+    patient_list = models.PatientData.select().limit(100)
+    
+    return render_template('charts.html', patient_list=patient_list)
+
+
+
+
+
 
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
