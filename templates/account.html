@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% from 'macros.html' import render_field %}
+
+{% block content %}
+
+    <form method="POST" action="" class="form">
+        <legend class="border-bottom mb-4 pl-3">Patient Information Form</legend>
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+            {{ render_field(field) }}
+        {% endfor %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success btn-lg btn-end" id="submit">Save</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+            
+                </div>
+            </div>
+        </div>  
+    </form>
+    
+
+    <style>
+            form.form {
+               text-align: center;
+                }
+            form input {
+                border:  lightgrey 1px solid;
+                border-radius: 5px;
+                margin: 2px;
+                margin-top: 15px;
+                padding: 13px;
+                width: 45%;
+            }
+            #submit {
+                margin-top: 5px;
+            }
+    </style>
+    
+{% endblock content %}
