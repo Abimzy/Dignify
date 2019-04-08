@@ -128,10 +128,25 @@ def patient_data():
             user = g.user._get_current_object(),
             first_name = form.first_name.data.strip(),
             last_name = form.last_name.data.strip(),
-            
+            gender = form. gender.data.strip(),
+            date_of_birth = form.date_of_birth.data.strip(),
+            picture_upload = form.picture_upload.data.strip(),
+            SSN = form.ssn.data.strip(),
+            health_insurance_id = form.health_insurance_id.data.strip(),
+            address = form.address.data.strip(),
+            city = form.city,
+            zip_code = form. zip_code.data.strip(),
+            phone_number = form.phone_number.data.strip(),
+            medical_history = form.medical_history.data.strip(),
+            visit_notes = form.visit_notes.data.strip(),
+            dental_record = form.dental_record.data.strip(),
+            current_medication =  form.current_medication.data.strip(),
+            inactive_medication =  form.inactive_medication.data.strip(),
+            file_upload = form.file_upload.data.strip() 
             )
+
         flash('Patient record created', "success")
-        return redirect(url_for('account'))
+        return redirect(url_for('account')) #Check to use request.url instead
     return render_template('account.html', title='Account', form=form)
 
 if __name__ == '__main__':
