@@ -83,7 +83,7 @@ def signup():
             password = form.password.data.strip()
             )
 
-        return redirect(url_for('landing')) #return on successful POST request/Update to login page
+        return redirect(url_for('login')) #return on successful POST request
     return render_template('signup.html', form=form) #return on successful GET request
     
 
@@ -102,7 +102,7 @@ def login():
                 ## login our user/create session
                 login_user(user)
 
-                return redirect(url_for('landing'))#Update this to account.html
+                return redirect(url_for('home'))#Update this to account.html
 
             else:
                 flash("Your email or password doesn't match", 'error')
