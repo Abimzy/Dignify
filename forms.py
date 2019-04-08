@@ -68,3 +68,22 @@ class LoginForm(Form):
         validators=[
             DataRequired()
             ])
+
+class PatientDataForm(Form):
+    first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2)])
+    gender = StringField('Gender')
+    date_of_birth =  DateTimeField('Date of birth', validators=[DataRequired()], format='%m/%d/%y')
+    picture_upload = TextField('Patient photo')
+    SSN = IntegerField('SSN', validators=[DataRequired(), Length(min=9)])
+    health_insurance_id = IntegerField('Insurance ID', validators=[DataRequired()])
+    address = TextAreaField('Address')
+    city = StringField('City')
+    zip_code = IntegerField('Zip Code')
+    phone_number = IntegerField('Phone Number')
+    medical_history = TextAreaField('Medical History', validators=[DataRequired()])
+    visit_notes = TextAreaField('Visit Notes', validators=[DataRequired()])
+    dental_record = TextAreaField('Dental Record', validators=[DataRequired()])
+    current_medication =  TextAreaField('Current Medication', validators=[DataRequired()])
+    inactive_medication =  TextAreaField('Inactive Medication', validators=[DataRequired()])
+    file_upload = TextField('Upload file')
