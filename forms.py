@@ -77,7 +77,7 @@ class PatientDataForm(Form):
     picture_upload = TextField('Patient photo')
     SSN = IntegerField('SSN', validators=[DataRequired(), Length(min=9)])
     health_insurance_id = IntegerField('Insurance ID', validators=[DataRequired()])
-    address = TextAreaField('Address')
+    address = StringField('Address')
     city = StringField('City')
     zip_code = IntegerField('Zip Code')
     phone_number = IntegerField('Phone Number')
