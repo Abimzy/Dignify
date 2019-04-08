@@ -3,26 +3,39 @@
 {% from 'macros.html' import render_field %}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <aside>
+                <h4>Patient data stream</h4>
+            </aside>
+        </div>
+        <div class="col-8">
+            <form method="POST" action="" class="form">
+                <legend class="border-bottom mb-4 pl-3">Patient Information Form</legend>
+                {{ form.hidden_tag() }}
+                {% for field in form %}
+                    {{ render_field(field) }}
+                {% endfor %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success btn-lg btn-end" id="submit">Save</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                    
+                        </div>
+                    </div>
+                </div>  
+            </form> 
+        </div>
+    </div>
+</div>
+    
 
-    <form method="POST" action="" class="form">
-        <legend class="border-bottom mb-4 pl-3">Patient Information Form</legend>
-        {{ form.hidden_tag() }}
-        {% for field in form %}
-            {{ render_field(field) }}
-        {% endfor %}
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-success btn-lg btn-end" id="submit">Save</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-            
-                </div>
-            </div>
-        </div>  
-    </form>
+   
     
 
     <style>
@@ -39,6 +52,12 @@
             }
             #submit {
                 margin-top: 5px;
+            }
+
+            aside {
+                border:  lightgrey 1px solid;
+                height: 200vh;
+                margin-top: 35px;
             }
     </style>
     
