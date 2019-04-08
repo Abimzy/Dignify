@@ -2,7 +2,7 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
-from flask_bootstrap import Bootstrap
+
 
 from forms import UserForm
 
@@ -35,6 +35,7 @@ def before_request():
     """Connect to the DB before each request."""
     g.db = models.DATABASE
     g.db.connect()
+    g.user = current_user
 
 @app.after_request
 def after_request(response):
@@ -88,7 +89,7 @@ def signup():
     
 
 
-@app.route('/login', methods=('GET', 'POST'))
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = forms.LoginForm()
     ## handle the post request
@@ -118,7 +119,20 @@ def logout():
     flash("You've been logged out", "success")
     return redirect(url_for('home'))
 
-
+@app.route('/account', methods=['GET', 'POST'])
+@login_required
+def patient_data():
+    form = forms.PatientDataForm()
+    if form.validate_on_submit():
+        models.PatientData.create(
+            user = g.user._get_current_object(),
+            first_name = form.first_name.data.strip(),
+            last_name = form.last_name.data.strip(),
+            
+            )
+        flash('Patient record created', "success")
+        return redirect(url_for('account'))
+    return render_template('account.html', title='Account', form=form)
 
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
