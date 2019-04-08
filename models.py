@@ -22,7 +22,15 @@ class User(UserMixin, Model):
 
     class Meta:
         database = DATABASE
-        # order_by = ('-date_signed_in',) If not used, remove
+        order_by = ('-date_signed_in',) 
+
+    def get_patient_data(self):
+        return PatientData.select().where(PatientData.user == self)
+
+    def get_stream(self):
+        return PatientData.select().where(
+            (PatientData.user == self)
+        )
 
     @classmethod
     def create_user(cls, first_name, last_name, email, password, avatar, admin=False):
