@@ -39,11 +39,40 @@ class User(UserMixin, Model):
             raise ValueError("User/Email already exists") 
 
 
+class PatientData(Model):
+    first_name = CharField()
+    last_name = CharField()
+    gender = CharField()
+    date_of_birth = DateTimeField(default=datetime.datetime)
+    picture_upload = TextField()
+    SSN = IntegerField(unique=True)
+    health_insurance_id = IntegerField(unique=True)
+    address = CharField()
+    city = CharField()
+    zip_code = IntegerField()
+    phone_number = IntegerField()
+    medical_history = CharField()
+    visit_notes = CharField()
+    dental_record = CharField()
+    current_medication =  CharField()
+    inactive_medication =  CharField()
+    timestamp = DateTimeField(default=datetime.datetime.now)
+    file_upload = TextField()
+    user = ForeignKeyField(
+        model=User,
+        backref='patient_data'
+    )
+
+
+    class Meta:
+        database = DATABASE
+        order_by = ('-timestamp',)
+
 
 # Initialize connection to DATABASE
 # Create table for User, 
 # and close the connection
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User], safe=True)
+    DATABASE.create_tables([User, PatientData], safe=True)
     DATABASE.close()
