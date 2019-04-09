@@ -2,7 +2,7 @@
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextField, TextAreaField, FileField, IntegerField, HiddenField, SelectField, DateTimeField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
-
+from wtforms.fields.html5 import DateField
 from models import User
 
 # create the class and variables to house Field definitions
@@ -12,7 +12,7 @@ class UserForm(Form):
     email = TextField("Email Address")
     role = TextField()
     avatar = StringField()
-    submit = SubmitField("Update")
+  
 
 
 
@@ -73,9 +73,9 @@ class PatientDataForm(Form):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
     last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2)])
     gender = StringField('Gender')
-    date_of_birth =  DateTimeField('Date of birth', validators=[DataRequired()], format='%m/%d/%y')
+    date_of_birth = DateField('Date of birth', validators=[DataRequired()])
     picture_upload = TextField('Patient photo')
-    SSN = IntegerField('SSN', validators=[DataRequired(), Length(min=9)])
+    ssn = IntegerField('SSN', validators=[DataRequired()])
     health_insurance_id = IntegerField('Insurance ID', validators=[DataRequired()])
     address = StringField('Address')
     city = StringField('City')
