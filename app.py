@@ -2,6 +2,7 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
+import datetime 
 
 
 from forms import UserForm
@@ -57,9 +58,9 @@ def about():
 def profile():
     #'form' variable sent to profile template defined here
     form = UserForm()
-    # checks if the form submission is valid
+    # checks if form submission is valid
     if form.validate_on_submit():
-        # if it is, we update the User's profile 
+        # if it is, create the User's profile 
         models.User.create(
             first_name=form.first_name.data.strip(), 
             last_name=form.last_name.data.strip(), 
@@ -68,7 +69,7 @@ def profile():
             avatar=form.avatar.data.strip()
             ) 
         flash("Your profile has been updated")
-        return redirect ('/')
+        return redirect ('/') #Update this route to chart page
     return render_template('profile.html', title="Profile", form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -122,20 +123,23 @@ def logout():
 @login_required
 def account():
     form = forms.PatientDataForm()
+    patient_data = models.PatientData.select().where(models.PatientData.user == g.user._get_current_object().id)
+    variable = "information to show on account page within aside"
+
     if form.validate_on_submit():
         models.PatientData.create(
-            user = g.user._get_current_object(),
+            user = g.user._get_current_object().id,
             first_name = form.first_name.data.strip(),
             last_name = form.last_name.data.strip(),
             gender = form.gender.data.strip(),
-            date_of_birth = form.date_of_birth.data.strip(),
+            date_of_birth = form.date_of_birth.data,
             picture_upload = form.picture_upload.data.strip(),
-            SSN = form.ssn.data.strip(),
-            health_insurance_id = form.health_insurance_id.data.strip(),
+            ssn = form.ssn.data,
+            health_insurance_id = form.health_insurance_id.data,
             address = form.address.data.strip(),
-            city = form.city,
-            zip_code = form.zip_code.data.strip(),
-            phone_number = form.phone_number.data.strip(),
+            city = form.city.data,
+            zip_code = form.zip_code.data,
+            phone_number = form.phone_number.data,
             medical_history = form.medical_history.data.strip(),
             visit_notes = form.visit_notes.data.strip(),
             dental_record = form.dental_record.data.strip(),
@@ -146,26 +150,13 @@ def account():
        
         flash('Patient record created', "success")
         return redirect(url_for('account')) #Check to use request.url instead
-    return render_template('account.html', form=form)
-
-
-@app.route('/charts')
-@login_required
-def charts():
-    patient_list = models.PatientData.select().limit(100)
-    
-    return render_template('charts.html', patient_list=patient_list)
-
-
-
-
-
+    return render_template('account.html', form=form, patient_data=patient_data, variable=variable)
 
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
     models.initialize()
 
-    #Sample admin profile here
+    # Sample admin profile here to initialize model
     try:
         models.User.create_user(
             first_name = 'Jane',
