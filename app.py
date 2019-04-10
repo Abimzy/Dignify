@@ -103,7 +103,7 @@ def login():
                 ## login our user/create session
                 login_user(user)
 
-                return redirect(url_for('chart'))
+                return redirect(url_for('charts'))
 
             else:
                 flash("Your email or password doesn't match", 'error')
@@ -149,17 +149,21 @@ def patient_data():
             )
        
         flash('Patient record created', "success")
-        return redirect(url_for('chart')) 
+        return redirect(url_for('charts')) 
     return render_template('patient_data.html', form=form)
 
-
-@app.route('/chart')
+# Rendering all patient records as cards(limit to 100/pg) on charts route
+@app.route('/charts')
 @login_required
-def chart():
+def charts():
     patient_list = models.PatientData.select().limit(100)
-    return render_template('chart.html', patient_list=patient_list)
+    return render_template('charts.html', patient_list=patient_list)
 
-
+#Rendering patient record by id
+@app.route('/chart/<string:id>/')
+@login_required
+def chart(id):
+    return render_template('chart.html', id=id)
 
 
 
