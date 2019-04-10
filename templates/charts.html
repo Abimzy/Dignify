@@ -11,7 +11,7 @@
     {% for patient_data in patient_list %}
    
     <div class="card card-body" style="width:20rem;">
-        <li class="list-group-item"><a class="card-title" href="chart/{{patient_data.id}}">{{ patient_data.first_name }} {{ patient_data.last_name }}</a></li>
+        <li class="list-group-item"><a class="card-title" href="chart/{{patient_data.id}}">{{ patient_data.first_name }} {{ patient_data.last_name }} ({{ patient_data.date_of_birth }})</a></li>
         <p class="card-text">{{ patient_data.medical_history }}</p>
     </div>
     <div class="card" style="width:20rem;">
