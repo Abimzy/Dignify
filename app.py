@@ -103,7 +103,7 @@ def login():
                 ## login our user/create session
                 login_user(user)
 
-                return redirect(url_for('account'))
+                return redirect(url_for('patient_data'))
 
             else:
                 flash("Your email or password doesn't match", 'error')
@@ -119,16 +119,16 @@ def logout():
     flash("You've been logged out", "success")
     return redirect(url_for('home'))
 
-@app.route('/account', methods=['GET', 'POST'])
+@app.route('/patient_data', methods=['GET', 'POST'])
 @login_required
-def account():
+def patient_data():
     form = forms.PatientDataForm()
-    patient_data = models.PatientData.select().where(models.PatientData.user == g.user._get_current_object().id)
-    variable = "information to show on account page within aside"
+    # patient_data = models.PatientData.select().where(models.PatientData.user == g.user._get_current_object().id)
+    # variable = "information to show on account page within aside"
 
     if form.validate_on_submit():
         models.PatientData.create(
-            user = g.user._get_current_object().id,
+            user = g.user._get_current_object(),
             first_name = form.first_name.data.strip(),
             last_name = form.last_name.data.strip(),
             gender = form.gender.data.strip(),
@@ -149,8 +149,26 @@ def account():
             )
        
         flash('Patient record created', "success")
-        return redirect(url_for('account')) #Check to use request.url instead
-    return render_template('account.html', form=form, patient_data=patient_data, variable=variable)
+        return redirect(url_for('chart')) #Check to use request.url instead
+    return render_template('patient_data.html', form=form)
+
+
+
+
+# @app.route('/charts')
+# @app.route('/charts/<string:id>/')
+# @login_required
+# def charts(id):
+#     return render_template('charts.html', id=id)
+
+
+# @app.route('/charts/<string:id>/')
+# @login_required
+# def article(id):
+#     return render_template('articles.html', id=id)
+
+
+
 
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
