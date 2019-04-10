@@ -163,21 +163,6 @@ def chart():
 
 
 
-# @app.route('/charts')
-# @app.route('/charts/<string:id>/')
-# @login_required
-# def charts(id):
-#     return render_template('charts.html', id=id)
-
-
-# @app.route('/charts/<string:id>/')
-# @login_required
-# def article(id):
-#     return render_template('articles.html', id=id)
-
-
-
-
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
     models.initialize()
