@@ -29,7 +29,7 @@ class User(UserMixin, Model):
 
     def get_stream(self):
         return PatientData.select().where(
-            (PatientData.user == self)
+            (PatientData.user == self) 
         )
 
     @classmethod
@@ -51,9 +51,9 @@ class PatientData(Model):
     first_name = CharField()
     last_name = CharField()
     gender = CharField()
-    date_of_birth = DateTimeField(default=datetime.datetime)
+    date_of_birth = DateField()
     picture_upload = TextField()
-    SSN = IntegerField(unique=True)
+    ssn = IntegerField(unique=True)
     health_insurance_id = IntegerField(unique=True)
     address = CharField()
     city = CharField()
@@ -64,13 +64,12 @@ class PatientData(Model):
     dental_record = CharField()
     current_medication =  CharField()
     inactive_medication =  CharField()
-    timestamp = DateTimeField(default=datetime.datetime.now)
     file_upload = TextField()
+    timestamp = DateTimeField(default=datetime.datetime.now)
     user = ForeignKeyField(
         model=User,
         backref='patient_data'
     )
-
 
     class Meta:
         database = DATABASE
