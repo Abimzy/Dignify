@@ -30,8 +30,11 @@
                 <a class="nav-link" href="#"><strong>Pricing</strong></a>
             </button>
             <button class="nav-item btn btn-outline-secondary">
-                    <a class="nav-link" href="#"><strong>Profile</strong></a>
+                    <a class="nav-link" href="{{ url_for('profile')}}"><strong>Profile</strong></a>
                 </button>
+                <button class="nav-item btn btn-outline-secondary">
+                        <a class="nav-link" href="{{ url_for('chart')}}"><strong>Charts</strong></a>
+                    </button>
             <button class="nav-item btn btn-outline-secondary">
                     <a class="nav-link" href="{{ url_for('logout')}}"><strong>Logout</strong></a>
                 </button>
@@ -50,7 +53,7 @@
             {% endif %}
         </div>
     </nav>
-</div>
+
 
 
         {% block content %}
