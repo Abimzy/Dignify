@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="text-center">
+    <h4>To display all patient record here as cards</h4>
+  <a class="btn btn-secondary" href="{{ url_for('patient_data') }}">Create Patient Record</a>
+</div>
+  
+<hr>
+    {% for patient_data in patient_list %}
+   
+    <div class="card card-body" style="width:20rem;">
+        <p class="card-text">{{ patient_data.first_name }}</p>
+        <p class="card-text">{{ patient_data.last_name }}</p>
+        <p class="card-text">{{ patient_data.medical_history }}</p>
+    </div>
+    <div class="card" style="width:20rem;">
+        <time data-time="{{ patient_data.timestamp }}" class="distime" datetime="{{ patient_data.timestamp.strftime('%Y-%m-%d %H:%M') }}">Record created: {{ patient_data.timestamp.strftime('%Y-%m-%d %H:%M') }}</time>
+        <h6 class="card-title"><a class="btn btn-secondary" href="{{ url_for('chart', first_name=patient_data.user.first_name, last_name=patient_data.user.last_name) }}">By: {{ patient_data.user.first_name }} {{ patient_data.user.last_name }}</a></h6>
+    </div>
+        {% endfor %}   
+  
+{% endblock content %}
