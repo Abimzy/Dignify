@@ -56,6 +56,14 @@ def about():
     return render_template('about.html', title="About")
 
 
+@app.route('/pricing')
+def pricing():
+    return render_template('pricing.html', title="Pricing")
+
+@app.route('/thankyou')
+def thankyou():
+    return render_template('thankyou.html', title="Pricing")
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
