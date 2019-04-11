@@ -1,5 +1,5 @@
 from flask import Flask, g
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
 import datetime 
@@ -48,11 +48,14 @@ def after_request(response):
 @app.route('/')
 @app.route('/home')
 def home():
+
     return render_template('home.html', title="Home")
 
 @app.route('/about')
 def about():
     return render_template('about.html', title="About")
+
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
@@ -68,8 +71,9 @@ def profile():
             # role=form.role.data.strip(), How to swap this as admin option 
             avatar=form.avatar.data.strip()
             ) 
-        flash("Your profile has been updated")
-        return redirect ('/') #Update this route to chart page
+
+        flash("Your profile has been updated", "alert alert-success")
+        return redirect ('charts') 
     return render_template('profile.html', title="Profile", form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -83,7 +87,7 @@ def signup():
             email = form.email.data.strip(), 
             password = form.password.data.strip()
             )
-        flash('Your account has been created', 'success')
+        flash('Your account has been created', "alert alert-success")
         return redirect(url_for('login')) #return on successful POST request
     return render_template('signup.html', form=form) #return on successful GET request
     
@@ -97,7 +101,7 @@ def login():
         try:
             user = models.User.get(models.User.email == form.email.data)
         except models.DoesNotExist:
-            flash("Your email or password doesn't match", 'error')
+            flash("Your email or password doesn't match", "alert alert-danger")
         else:
             if check_password_hash(user.password, form.password.data):
                 ## login our user/create session
@@ -106,7 +110,7 @@ def login():
                 return redirect(url_for('charts'))
 
             else:
-                flash("Your email or password doesn't match", 'error')
+                flash("Your email or password doesn't match", "alert alert-danger")
  
     ### get request
     return render_template('login.html', form=form)
@@ -116,15 +120,13 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("You've been logged out", "success")
+    flash("You've been logged out", "alert alert-success")
     return redirect(url_for('home'))
 
-@app.route('/patient_data', methods=['GET', 'POST'])
+@app.route('/patient_form', methods=['GET', 'POST'])
 @login_required
-def patient_data():
+def patient_form():
     form = forms.PatientDataForm()
-    # patient_data = models.PatientData.select().where(models.PatientData.user == g.user._get_current_object().id)
-    # variable = "information to show on account page within aside"
 
     if form.validate_on_submit():
         models.PatientData.create(
@@ -148,9 +150,9 @@ def patient_data():
             file_upload = form.file_upload.data.strip() 
             )
        
-        flash('Patient record created', "success")
+        flash('Patient record created', "alert alert-success")
         return redirect(url_for('charts')) 
-    return render_template('patient_data.html', form=form)
+    return render_template('patient_form.html', form=form, chart=chart)
 
 # Rendering all patient records as cards(limit to 100/pg) on charts route
 @app.route('/charts')
@@ -160,11 +162,58 @@ def charts():
     return render_template('charts.html', patient_list=patient_list)
 
 #Rendering patient record by id
-@app.route('/chart/<string:id>/')
+@app.route('/chart/<id>/', methods=['GET', 'POST'])
 @login_required
 def chart(id):
-    return render_template('chart.html', id=id)
+    chart = models.PatientData.get( models.PatientData.id == id)
+    return render_template('chart.html' , chart=chart )
 
+
+
+#Edit PatientData
+@app.route('/edit_patient_data/<id>', methods=['GET', 'POST'])
+@login_required
+def edit_patient_data(id):
+    chart = models.PatientData.get( models.PatientData.id == id)
+
+    form = forms.PatientDataForm()
+    if form.validate_on_submit():
+        chart.first_name = form.first_name.data
+        chart.last_name = form.last_name.data
+        chart.gender = form.gender.data
+        chart.date_of_birth = form.date_of_birth.data
+        chart.picture_upload = form.picture_upload.data
+        chart.ssn = form.ssn.data
+        chart.health_insurance_id = form.health_insurance_id.data
+        chart.address = form.address.data
+        chart.city = form.city.data
+        chart.zip_code = form.zip_code.data
+        chart.phone_number = form.phone_number.data
+        chart.medical_history = form.medical_history.data
+        chart.visit_notes = form.visit_notes.data
+        chart.dental_record = form.dental_record.data
+        chart.current_medication = form.current_medication.data
+        chart.inactive_medication = form.inactive_medication.data
+        chart.file_upload = form.file_upload.data
+
+        chart.save()
+
+        flash('Patient chart is updated', "alert alert-success")
+        return redirect(url_for('charts'))
+
+    return render_template('edit_patient_data.html' , chart=chart, form=form) 
+     
+
+#Delete PatientData
+@app.route('/delete_patient_data/<id>', methods=['GET', 'DELETE'])
+@login_required
+def delete_patient_data(id):
+    chart = models.PatientData.get( models.PatientData.id == id)
+
+    chart.delete_instance()
+
+    flash('Patient chart deleted', "alert alert-warning")
+    return redirect(url_for('charts'))
 
 
 if __name__ == '__main__':
