@@ -1,7 +1,30 @@
 {% extends "layout.html" %}
 
+
 {% block content %}
-    <h1>{{ id }}</h1>
+  
+<ul>
+    <p>{{ chart.first_name}}</p>
+    <p>{{ chart.last_name}}</p>
+    <p>{{ chart.gender}}</p>
+    <p>{{ chart.date_of_birth}}</p>
+    <p>{{ chart.picture_upload}}</p>
+    <p>{{ chart.ssn}}</p>
+    <p>{{ chart.health_insurance_id}}</p>
+    <p>{{ chart.address}}</p>
+    <p>{{ chart.city}}</p>
+    <p>{{ chart.zip_code}}</p>
+    <p>{{ chart.phone_number}}</p>
+    <p>{{ chart.medical_history}}</p>
+    <p>{{ chart.dental_record}}</p>
+    <p>{{ chart.visit_notes}}</p>
+    <p>{{ chart.current_medication}}</p>
+    <p>{{ chart.inactive_medication}}</p>
+    <p>{{ chart.file_upload}}</p>
+</ul>
+    <button type="submit" class="btn btn-success btn-sm btn-end" id="submit"><a href="{{ url_for('edit_patient_data', id=chart.id) }}">Update</a></button>
+    <button type="submit" class="btn btn-danger btn-sm btn-end" id="submit"><a href="{{ url_for('delete_patient_data', id=chart.id) }}">Delete</a></button>
+  
 {% endblock content %}
 
 
