@@ -80,6 +80,7 @@ def profile():
             avatar=form.avatar.data.strip()
             ) 
 
+    # Add bio section here! use ckeditor plugin
         flash("Your profile has been updated", "alert alert-success")
         return redirect ('charts') 
     return render_template('profile.html', title="Profile", form=form)

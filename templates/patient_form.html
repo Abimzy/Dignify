@@ -3,7 +3,7 @@
 {% from 'macros.html' import render_field %}
 
 {% block content %}
-<div class="container">
+<div class="container jumbotron">
     <div class="row">
         <div class="col-4">
             <aside>
@@ -19,9 +19,26 @@
             <form method="POST" action="" class="form">
                 <legend class="border-bottom mb-4 pl-3">Patient Information Form</legend>
                 {{ form.hidden_tag() }}
-                {% for field in form %}
-                {{ render_field(field) }}
-                {% endfor %}
+                {{ form.first_name.label }}
+                {{ form.first_name (placeholder="First Name")}}
+                {{ form.last_name() }}  
+                {{ form.gender.label }}
+                {{ form.gender(placeholder="Gender") }}
+                {{ form.date_of_birth.label }}
+                {{ form.date_of_birth(placeholder="Date of birth") }}
+                {{ form.picture_upload()}}
+                {{ form.ssn() }}
+                {{ form.health_insurance_id() }}
+                {{ form.address() }}
+                {{ form.city() }}
+                {{ form.zip_code() }}
+                {{ form.phone_number() }}
+                {{ form.medical_history() }}
+                {{ form.visit_notes() }}
+                {{ form.dental_record() }}
+                {{ form.current_medication() }}
+                {{ form.inactive_medication() }}
+                {{ form.file_upload() }}
                 <div class="container">
                     <div class="row">
                         <div class="col-12">

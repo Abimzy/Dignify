@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+
+        </div>
+        <div class="col-8">
+            <form method="POST DELETE" action="" class="form">
+                <legend class="border-bottom mb-4 pl-3">Patient Information Form</legend>
+                {{ form.hidden_tag() }}
+                {{ form.first_name (value=chart.first_name) }}
+                {{ form.last_name (value=chart.last_name) }}  
+                {{ form.gender (value=chart.gender) }}
+                {{ form.date_of_birth (value=chart.date_of_birth) }}
+                {{ form.picture_upload (value=chart.picture_upload) }}
+                {{ form.ssn (value=chart.ssn) }}
+                {{ form.health_insurance_id (value=chart.health_insurance_id) }}
+                {{ form.address (value=chart.address) }}
+                {{ form.city (value=chart.city) }}
+                {{ form.zip_code (value=chart.zip_code) }}
+                {{ form.phone_number (value=chart.phone_number) }}
+                {{ form.medical_history (value=chart.medical_history) }}
+                {{ form.visit_notes (value=chart.visit_notes) }}
+                {{ form.dental_record (value=chart.dental_record) }}
+                {{ form.current_medication (value=chart.current_medication) }}
+                {{ form.inactive_medication (value=chart.inactive_medication) }}
+                {{ form.file_upload (value=chart.file_upload) }}
+           
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success btn-sm pullright" id="submit">Update record</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<style>
+    form.form {
+        text-align: center;
+    }
+
+    form input {
+        border: lightgrey 1px solid;
+        border-radius: 5px;
+        margin: 2px;
+        margin-top: 15px;
+        padding: 13px;
+        width: 70%;
+    }
+
+    #submit {
+        margin-top: 5px;
+    }
+
+    aside {
+        border: lightgrey 1px solid;
+        height: 150vh;
+        margin-top: 35px;
+    }
+</style>
+
+{% endblock content %}
