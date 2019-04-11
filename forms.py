@@ -10,7 +10,7 @@ class UserForm(Form):
     first_name = TextField("First Name")
     last_name = TextField("Last Name")
     email = TextField("Email Address")
-    role = TextField()
+
     avatar = StringField()
   
 
@@ -78,9 +78,9 @@ class PatientDataForm(Form):
     city = StringField('City')
     zip_code = IntegerField('Zip Code')
     phone_number = IntegerField('Phone Number')
-    medical_history = TextAreaField('Medical History', validators=[DataRequired()])
-    visit_notes = TextAreaField('Visit Notes', validators=[DataRequired()])
-    dental_record = TextAreaField('Dental Record', validators=[DataRequired()])
-    current_medication =  TextAreaField('Current Medication', validators=[DataRequired()])
-    inactive_medication =  TextAreaField('Inactive Medication', validators=[DataRequired()])
+    medical_history = TextField('Medical History', validators=[DataRequired()])
+    visit_notes = TextField('Visit Notes', validators=[DataRequired()])
+    dental_record = TextField('Dental Record', validators=[DataRequired()])
+    current_medication =  TextField('Current Medication', validators=[DataRequired()])
+    inactive_medication =  TextField('Inactive Medication', validators=[DataRequired()])
     file_upload = TextField('Upload file')
