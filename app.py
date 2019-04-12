@@ -37,7 +37,7 @@ def before_request():
     g.db = models.DATABASE
     g.db.connect()
     g.user = current_user
-
+ 
 @app.after_request
 def after_request(response):
     """Close the database connection after each request."""
@@ -68,7 +68,7 @@ def thankyou():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     #'form' variable sent to profile template defined here
-    form = UserForm()
+    form = forms.UserForm()
     # checks if form submission is valid
     if form.validate_on_submit():
         # if it is, create the User's profile 
@@ -76,7 +76,7 @@ def profile():
             first_name=form.first_name.data.strip(), 
             last_name=form.last_name.data.strip(), 
             email=form.email.data.strip(),
-            # role=form.role.data.strip(), How to swap this as admin option 
+            bio=form.bio.data.strip(),
             avatar=form.avatar.data.strip()
             ) 
 
@@ -94,6 +94,7 @@ def signup():
             last_name = form.last_name.data.strip(), 
             avatar = form.avatar.data.strip(),
             email = form.email.data.strip(), 
+            bio=form.bio.data.strip(),
             password = form.password.data.strip()
             )
         flash('Your account has been created', "alert alert-success")
@@ -236,6 +237,7 @@ if __name__ == '__main__':
             last_name = 'Doe',
             email = 'jane@email.com',
             password = 'password',
+            bio='About me',
             avatar = 'avatar',
             admin = True
             )
