@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <p>Profile dashboard</p>
+    </div>
+
+    <div class='content-section'>
+        <div class="media img-fluid">
+            <img class="rounded-circle account-img" src="/static/profile_pics/anonymous-sm.jpg">
+            <div class="media-body">
+                <h2 class="account-heading">{{current_user.first_name}} {{current_user.last_name}}</h2>
+                <p class="text-secondary">{{current_user.email}}</p>
+            </div>
+        </div>
+        <form method="POST" action="" class="form">
+            <legend class="border-bottom mb-4 pl-3">Profile Update</legend>
+                {{ form.hidden_tag() }}
+                {{ form.first_name (value=user.first_name) }}
+                {{ form.last_name (value=user.last_name) }}  
+                {{ form.email (value=user.email) }}
+                {{ form.bio (value=user.bio) }}
+                {{ form.avatar (value=user.avatar) }}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success btn-sm btn-end" id="submit">Update</button>
+                        </div>
+                    </div>
+                </div>  
+            </form>
+    </div>
+    
+
+    <style>
+
+        .account-img {
+            height:10rem;
+            width:10rem;
+            margin: 15px;
+        }
+    </style>
+{% endblock content %}
+
+   
