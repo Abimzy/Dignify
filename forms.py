@@ -32,7 +32,8 @@ class UpdateAccountForm(Form):
    first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
    last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2)])
    email = StringField('Email', validators=[DataRequired(), Email()])        
-   submit = SubmitField('Update')        
+   bio = StringField('Bio')
+   avatar = StringField('Profile Photo')     
 
 
 
