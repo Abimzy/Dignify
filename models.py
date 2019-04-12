@@ -15,6 +15,7 @@ class User(UserMixin, Model):
     last_name = CharField()
     email = CharField(unique=True)
     password = CharField(max_length = 100)
+    bio = TextField()
     avatar = TextField()
     is_admin = BooleanField(default=False)
     #comes from backend - do not include in forms
@@ -33,13 +34,14 @@ class User(UserMixin, Model):
         )
 
     @classmethod
-    def create_user(cls, first_name, last_name, email, password, avatar, admin=False):
+    def create_user(cls, first_name, last_name, email, password, bio, avatar, admin=False):
         try:
             cls.create(
                 first_name = first_name,
                 last_name = last_name,
                 email = email,
                 password = generate_password_hash(password),
+                bio = bio,
                 avatar = avatar,
                 is_admin = admin
                 )
