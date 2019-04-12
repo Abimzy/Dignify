@@ -5,7 +5,7 @@ from flask_bcrypt import check_password_hash
 import datetime 
 
 
-from forms import UserForm
+from forms import UserForm, UpdateAccountForm
 
 #To have access to models
 import models
@@ -85,6 +85,8 @@ def profile():
         return redirect ('charts') 
     return render_template('profile.html', title="Profile", form=form)
 
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = forms.SignupForm()
@@ -133,6 +135,48 @@ def logout():
     flash("You've been logged out", "alert alert-success")
     return redirect(url_for('home'))
 
+
+
+#User account page
+@app.route('/account')
+@login_required
+def account():
+    avatar = url_for('static', filename='profile_pics/' + current_user.avatar)
+
+    flash('Your account has been updated', "alert alert-success")
+
+    return render_template('account.html', title="Account", avatar=avatar)
+
+
+
+
+#User account update
+@app.route('/update_account/<id>', methods=['GET', 'POST'])
+@login_required
+def update_account(id):
+    user = models.User.get( models.User.id == id)
+    avatar = url_for('static', filename='profile_pics/' + current_user.avatar)
+
+    form = forms.UpdateAccountForm()
+    if form.validate_on_submit():
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.email = form.email.data
+        user.bio = form.bio.data
+        user.avatar = form.avatar.data
+        
+        user.save()
+
+        flash('Your account has been updated', "alert alert-success")
+        return redirect(url_for('account'))
+
+    return render_template('update_account.html', title="Account", avatar=avatar, form=form, user=user)
+
+
+
+
+
+
 @app.route('/patient_form', methods=['GET', 'POST'])
 @login_required
 def patient_form():
@@ -160,7 +204,7 @@ def patient_form():
             file_upload = form.file_upload.data.strip() 
             )
        
-        flash('Patient record created', "alert alert-success")
+        flash('Your profile is updated', "alert alert-success")
         return redirect(url_for('charts')) 
     return render_template('patient_form.html', form=form, chart=chart)
 
