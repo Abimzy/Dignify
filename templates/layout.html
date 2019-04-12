@@ -15,7 +15,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lightblue">
-        <a class="navbar-brand" href="{{ url_for('home')}}">Dignify</a>
+        <a class="navbar-brand" href="{{ url_for('home')}}">Dignify®</a>
         <h5>{% if current_user.is_authenticated %} Hello {{current_user.first_name}} {%endif%}</h5>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
                 <a class="nav-link" href="#"><strong>Pricing</strong></a>
             </button>
             <button class="nav-item btn btn-outline-secondary">
-                    <a class="nav-link" href="{{ url_for('profile')}}"><strong>Profile</strong></a>
+                    <a class="nav-link" href="{{ url_for('account')}}"><strong>Profile</strong></a>
                 </button>
                 <button class="nav-item btn btn-outline-secondary">
                         <a class="nav-link" href="{{ url_for('charts')}}"><strong>Charts</strong></a>
