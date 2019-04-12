@@ -10,8 +10,8 @@ class UserForm(Form):
     first_name = TextField("First Name")
     last_name = TextField("Last Name")
     email = TextField("Email Address")
-
-    avatar = StringField()
+    bio = TextField("Bio")
+    avatar = StringField("Profile Picture")
   
 
 
