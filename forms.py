@@ -12,59 +12,29 @@ class UserForm(Form):
     email = TextField("Email Address")
     bio = TextField("Bio")
     avatar = StringField("Profile Picture")
-  
-
-
-
 def email_exists(form, field):
     if User.select().where(User.email == field.data).exists():
         raise ValidationError('User with that email already exists.')
 
 class SignupForm(Form):
-    first_name = StringField(
-        'First Name',
-        validators=[
-            DataRequired(),
-            Length(min=2)
-            ])
-    last_name = StringField(
-        'Last Name',
-        validators=[
-            DataRequired(),
-            Length(min=2)
-            ])
-    email = StringField(
-        'Email',
-        validators=[
-            DataRequired(),
-            Email(),
-            email_exists
-            ])        
-    password = PasswordField(
-        'Password',
-        validators=[
-            DataRequired(),
-            Length(min=3),
-            EqualTo('password2', message='Passwords must match') 
-            ])      
-    password2 = PasswordField(
-        'Confirm Password',
-        validators=[
-            DataRequired()
-            ])
+    first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2)])
+    email = StringField('Email', validators=[DataRequired(), Email(), email_exists])        
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=3), EqualTo('password2', message='Passwords must match')])      
+    password2 = PasswordField('Confirm Password', validators=[DataRequired()])
 
 class LoginForm(Form):
-    email = StringField(
-        'Email', 
-        validators=[
-            DataRequired(), 
-            Email()
-            ])
-    password = PasswordField(
-        'Password', 
-        validators=[
-            DataRequired()
-            ])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
+
+class UpdateAccountForm(Form):
+   first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
+   last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2)])
+   email = StringField('Email', validators=[DataRequired(), Email()])        
+   submit = SubmitField('Update')        
+
+
 
 class PatientDataForm(Form):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=2)])
