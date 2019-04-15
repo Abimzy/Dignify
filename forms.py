@@ -2,7 +2,10 @@
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextField, TextAreaField, FileField, IntegerField, HiddenField, SelectField, DateTimeField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.fields.html5 import DateField
+
+
 from models import User
 
 # create the class and variables to house Field definitions
@@ -33,7 +36,7 @@ class UpdateAccountForm(Form):
    last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2)])
    email = StringField('Email', validators=[DataRequired(), Email()])        
    bio = StringField('Bio')
-   avatar = StringField('Profile Photo')     
+   avatar = FileField('Profile Photo', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])     
 
 
 
