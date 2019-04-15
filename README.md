@@ -66,12 +66,12 @@ Additional features to be included in app:
 
 -Update Patient Data
 
-![]()
+![](https://github.com/Abimzy/Dignify/blob/master/Edit%20Patient%20Data.png)
 
 
--Image Upload
+-Profile Image Upload
 
-![]()
+![](https://github.com/Abimzy/Dignify/blob/master/User%20Account%20Update%20and%20Image%20Upload.png)
 
 
 ---
