@@ -23,29 +23,29 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if current_user.is_authenticated %}
             <div class="navbar-nav">
-            <button class="nav-item btn btn-outline-secondary">
+            <button class="nav-item btn ">
                 <a class="nav-link" href="{{ url_for('about')}}"><strong>About</strong></a>
             </button>
-            <button class="nav-item btn btn-outline-secondary">
-                <a class="nav-link" href="#"><strong>Pricing</strong></a>
-            </button>
-            <button class="nav-item btn btn-outline-secondary">
+            <button class="nav-item btn ">
+                    <a class="nav-link" href="{{ url_for('pricing')}}"><strong>Pricing</strong></a>
+                </button>
+            <button class="nav-item btn ">
                     <a class="nav-link" href="{{ url_for('account')}}"><strong>Profile</strong></a>
                 </button>
-                <button class="nav-item btn btn-outline-secondary">
+                <button class="nav-item btn ">
                         <a class="nav-link" href="{{ url_for('charts')}}"><strong>Charts</strong></a>
                     </button>
-            <button class="nav-item btn btn-outline-secondary">
+            <button class="nav-item btn ">
                     <a class="nav-link" href="{{ url_for('logout')}}"><strong>Logout</strong></a>
                 </button>
             {% else %}
-            <button class="nav-item btn btn-outline-secondary">
+            <button class="nav-item btn ">
                     <a class="nav-link" href="{{ url_for('about')}}"><strong>About</strong></a>
                 </button>
-                <button class="nav-item btn btn-outline-secondary">
+                <button class="nav-item btn ">
                         <a class="nav-link" href="{{ url_for('pricing')}}"><strong>Pricing</strong></a>
                     </button>
-            <button class="nav-item btn btn-outline-secondary">
+            <button class="nav-item btn">
                 <a class="nav-link" href="{{ url_for('login')}}"><strong>Login</strong></a>
             </button>
             </div>
