@@ -3,42 +3,32 @@
 {% from 'macros.html' import render_field %}
 
 {% block content %}
-<div class="container jumbotron">
-    <div class="row">
-        <div class="col-4">
-            <aside>
-                <h4>Patient data stream</h4>
-                <ul>
-                    <li>
-                  <p>To include some other utils</p>
-                    </li>
-                </ul>
-            </aside>
-        </div>
-        <div class="col-8">
+<div class="container ">
+   
+        <div class="col-12">
             <form method="POST" action="" class="form">
                 <legend class="border-bottom mb-4 pl-3">Patient Information Form</legend>
                 {{ form.hidden_tag() }}
-                {{ form.first_name.label }}
+               
                 {{ form.first_name (placeholder="First Name")}}
-                {{ form.last_name() }}  
-                {{ form.gender.label }}
+                {{ form.last_name(placeholder="Last Name") }}  
+              
                 {{ form.gender(placeholder="Gender") }}
-                {{ form.date_of_birth.label }}
+              
                 {{ form.date_of_birth(placeholder="Date of birth") }}
-                {{ form.picture_upload()}}
-                {{ form.ssn() }}
-                {{ form.health_insurance_id() }}
-                {{ form.address() }}
-                {{ form.city() }}
-                {{ form.zip_code() }}
-                {{ form.phone_number() }}
-                {{ form.medical_history() }}
-                {{ form.visit_notes() }}
-                {{ form.dental_record() }}
-                {{ form.current_medication() }}
-                {{ form.inactive_medication() }}
-                {{ form.file_upload() }}
+                {{ form.picture_upload(placeholder="Picture")}}
+                {{ form.ssn(placeholder="SSN") }}
+                {{ form.health_insurance_id(placeholder="Health Insurance ID") }}
+                {{ form.address(placeholder="Address") }}
+                {{ form.city(placeholder="City") }}
+                {{ form.zip_code(placeholder="Zip Code") }}
+                {{ form.phone_number(placeholder="Phone Number") }}
+                {{ form.medical_history(placeholder="Medical History") }}
+                {{ form.visit_notes(placeholder="Visit Notes") }}
+                {{ form.dental_record(placeholder="Dental Record") }}
+                {{ form.current_medication(placeholder="Current Medication") }}
+                {{ form.inactive_medication(placeholder="Inactive Medication") }}
+                {{ form.file_upload(placeholder="File Upload") }}
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
