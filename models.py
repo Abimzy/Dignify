@@ -16,7 +16,7 @@ class User(UserMixin, Model):
     email = CharField(unique=True)
     password = CharField(max_length = 100)
     bio = TextField()
-    avatar = TextField()
+    avatar = CharField(null=True, default='anonymous-sm.jpg')
     is_admin = BooleanField(default=False)
     #comes from backend - do not include in forms
     date_signed_in = DateTimeField(default= datetime.datetime.now)
@@ -34,7 +34,7 @@ class User(UserMixin, Model):
         )
 
     @classmethod
-    def create_user(cls, first_name, last_name, email, password, bio, avatar, admin=False):
+    def create_user(cls, first_name, last_name, email, password, bio, admin=False):
         try:
             cls.create(
                 first_name = first_name,
@@ -42,7 +42,6 @@ class User(UserMixin, Model):
                 email = email,
                 password = generate_password_hash(password),
                 bio = bio,
-                avatar = avatar,
                 is_admin = admin
                 )
         except IntegrityError:
