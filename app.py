@@ -58,25 +58,25 @@ def about():
     return render_template('about.html', title="About")
 
 
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    #'form' variable sent to profile template defined here
-    form = forms.UserForm()
-    # checks if form submission is valid
-    if form.validate_on_submit():
-        # if it is, create the User's profile 
-        models.User.create(
-            first_name=form.first_name.data.strip(), 
-            last_name=form.last_name.data.strip(), 
-            email=form.email.data.strip(),
-            bio=form.bio.data.strip(),
-            avatar=form.avatar.data.strip()
-            ) 
+# @app.route('/profile', methods=['GET', 'POST'])
+# def profile():
+#     #'form' variable sent to profile template defined here
+#     form = forms.UserForm()
+#     # checks if form submission is valid
+#     if form.validate_on_submit():
+#         # if it is, create the User's profile 
+#         models.User.create(
+#             first_name=form.first_name.data.strip(), 
+#             last_name=form.last_name.data.strip(), 
+#             email=form.email.data.strip(),
+#             bio=form.bio.data.strip(),
+#             avatar=form.avatar.data.strip()
+#             ) 
    
-    # Add bio section here! use ckeditor plugin
-        flash("Your profile has been updated", "alert alert-success")
-        return redirect ('charts') 
-    return render_template('profile.html', title="Profile", form=form)
+#     # Add bio section here! use ckeditor plugin
+#         flash("Your profile has been updated", "alert alert-success")
+#         return redirect ('charts') 
+#     return render_template('profile.html', title="Profile", form=form)
 
 
 
@@ -88,8 +88,9 @@ def signup():
             first_name = form.first_name.data.strip(), 
             last_name = form.last_name.data.strip(), 
             email = form.email.data.strip(), 
-            bio=form.bio.data.strip(),
-            password = form.password.data.strip()
+            password = form.password.data.strip(),
+            bio = form.bio.data.strip(),
+            avatar = form.avatar.data
             )
         flash('Your account has been created', "alert alert-success")
         return redirect(url_for('login')) #return on successful POST request
@@ -296,7 +297,9 @@ if __name__ == '__main__':
             last_name = 'Doe',
             email = 'jane@email.com',
             password = 'password',
-            bio='About me',
+            bio = 'About me',
+            avatar = 'anonymous-sm.jpg',
+       
             admin = True
             )
     except ValueError:

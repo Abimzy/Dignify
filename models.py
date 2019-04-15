@@ -34,7 +34,7 @@ class User(UserMixin, Model):
         )
 
     @classmethod
-    def create_user(cls, first_name, last_name, email, password, bio, admin=False):
+    def create_user(cls, first_name, last_name, email, password, bio, avatar, admin=False):
         try:
             cls.create(
                 first_name = first_name,
@@ -42,6 +42,7 @@ class User(UserMixin, Model):
                 email = email,
                 password = generate_password_hash(password),
                 bio = bio,
+                avatar = avatar,
                 is_admin = admin
                 )
         except IntegrityError:
