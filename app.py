@@ -128,6 +128,14 @@ def logout():
     return redirect(url_for('home'))
 
 
+@app.route('/pricing', methods=['GET', 'POST'])
+def pricing():
+    return render_template('pricing.html', title="Pricing")
+
+@app.route('/thankyou', methods=['GET', 'POST'])
+def thankyou():
+    return render_template('thankyou.html', title="Thank")
+
 
 #User account page
 @app.route('/account')
