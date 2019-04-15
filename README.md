@@ -51,7 +51,7 @@ Patient data form
 
 ---
 
-## Planned Features
+## Future Enhancement
 
 Additional features to be included in app: 
 
