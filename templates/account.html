@@ -1,13 +1,10 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="jumbotron text-center">
-        <p>Profile dashboard</p>
-    </div>
 
     <div class='content-section'>
-        <div class="media img-fluid">
-            <img class="rounded-circle account-img" src={{ avatar }}>
+        <div class="media jumbotron img-fluid">
+            <img class="rounded-circle account-img" src="{{ avatar }}">
             <div class="media-body">
                 <h2 class="account-heading">{{current_user.first_name}} {{current_user.last_name}}</h2>
                 <p class="text-secondary">{{current_user.email}}</p>
@@ -15,7 +12,7 @@
             </div>
         </div>
     </div>
-        <a href="{{ url_for('update_account', id=current_user.id) }}"><button type="submit" class="btn btn-success btn-sm btn-end" id="submit">Update</button></a>
+        <a href="{{ url_for('update_account', id=current_user.id) }}"><button type="submit" class="btn btn-success btn-sm btn-end" style="margin-left:10px;"id="submit">Update</button></a>
     <style>
 
         .account-img {
