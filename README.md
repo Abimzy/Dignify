@@ -4,7 +4,7 @@ Electronic medical records (EMR) or electronic health records (EHR) have been sh
 
 Even though Physicians and other care providers require high quality information to make sound clinical decisions, their information needs are often not met in most developing countries. 
 
-This app serves as an affordable lightweight solution for patient data intake.
+This app serves as an affordable lightweight solution for patient data intake. Dignify® was built as a Software as a Service (SaaS) so there's integration with *Stripe* as the payment gateway and *Calendly* for scheduling demo with customers who purchase the app.
 
 
 
@@ -19,5 +19,45 @@ This app serves as an affordable lightweight solution for patient data intake.
 - [Vanilla JS]()
 - [Bootstrap](https://getbootstrap.com/)
 
+
+---
+
+## Existing Features
+
+Landing Page
+
+- Authentication & Validation (User Log-In & Sign-Up)
+- Pricing page with Stripe intregration
+- Schedule a demo button to schedule appointments using Calendly
+
+
+About Page
+
+- To describe benefiuts of the EMR and arguments for purchasing 
+- Testimonies from previous customers
+
+
+User Profile Page
+
+- User Profile with edit functionality
+- User can upload profile picture during profile update
+
+
+Patient data form
+
+- Providers (Users) can create, read, update and delete patient charts
+- Page with all patient records to view chart details upon click
+
+
+---
+
+## Planned Features
+
+Additional features to be included in app: 
+
+- Vendor dashboard with charts for Admin or Operations Personal to review app usage and scalability within the healthcare practice.  
+- Send user a welcome email after creating an account
+- Set up password reset
+- Include search function to retrieve patient data (Validate with date of birth after retrieval from database) 
 
 ---
