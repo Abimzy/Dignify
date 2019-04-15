@@ -1,66 +1,10 @@
 {% extends "layout.html" %}
-{% from 'macros.html' import render_field %}
 
 {% block content %}
     <div class="jumbotron text-center">
         <p>Profile dashboard</p>
     </div>
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        {% for field in form %}
-            {{ render_field(field) }}
-        {% endfor %}
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                        <div class="container">
-                                <div class="row">
-                                  <div class="col">
-                              
-                                    <h1>Profile</h1>
-                                    <hr>
-                              
-                                    <div class="card">
-                                      <div class="card-body">
-                                        <h4>{{ first_name }}</h4>
-                                        <hr>
-                              
-                                        <p>{{ email }}</p>
-                                        <p class="text-muted">{{ last_name }}</p>
-                              
-                                      </div>
-                                    </div>
-                              
-                              
-                                  </div>
-                                </div>
-                              </div>
-                    <button type="submit" class="btn btn-success btn-sm btn-end" id="submit">Update</button>
-                </div>
-            </div>
-        </div>
-    </form>
-  
-    
-    
-      
-    <style>
-            form.form {
-               text-align: center;
-               height: 85%vh;
-                }
-            form input {
-                border:  lightgrey 1px solid;
-                border-radius: 5px;
-                margin: 2px;
-                margin-top: 15px;
-                padding: 13px;
-                width: 45%;
-            }
-            #submit {
-                margin-top: 5px;
-            }
-    </style>
+
     
 {% endblock content %}
 
