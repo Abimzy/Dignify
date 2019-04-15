@@ -33,7 +33,7 @@ Landing Page
 
 About Page
 
-- To describe benefiuts of the EMR and arguments for purchasing 
+- To describe benefits of the EMR and arguments for purchasing 
 - Testimonies from previous customers
 
 
@@ -61,3 +61,40 @@ Additional features to be included in app:
 - Include search function to retrieve patient data (Validate with date of birth after retrieval from database) 
 
 ---
+
+## Screen shots
+
+-Update Patient Data
+
+![]()
+
+
+-Image Upload
+
+![]()
+
+
+---
+
+## Biggest Wins and Challenges
+
+Wins:
+- Integration with external APIs - Stripe and Calendly
+- Pre-populating form fields during update (edit)
+- User authentication for signup and login using flask
+
+Challenges:
+- Dealing with format on date field since data type was already formatted
+- Image upload and making sure default image persisted in database
+
+
+
+---
+## Shoutouts
+- Instructions Team (Isha, Brock, Dalton)
+
+Colleagues who helped with debugging:
+- Matt (Date field format )
+- Alom (Patient data update)
+- Paris (Image upload)
+
