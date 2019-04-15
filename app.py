@@ -3,6 +3,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
 import datetime 
+import secrets
+import os
 
 
 from forms import UserForm, UpdateAccountForm
@@ -56,15 +58,6 @@ def about():
     return render_template('about.html', title="About")
 
 
-@app.route('/pricing')
-def pricing():
-    return render_template('pricing.html', title="Pricing")
-
-@app.route('/thankyou')
-def thankyou():
-    return render_template('thankyou.html', title="Pricing")
-
-
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     #'form' variable sent to profile template defined here
@@ -79,7 +72,7 @@ def profile():
             bio=form.bio.data.strip(),
             avatar=form.avatar.data.strip()
             ) 
-
+   
     # Add bio section here! use ckeditor plugin
         flash("Your profile has been updated", "alert alert-success")
         return redirect ('charts') 
@@ -94,7 +87,6 @@ def signup():
         models.User.create_user(
             first_name = form.first_name.data.strip(), 
             last_name = form.last_name.data.strip(), 
-            avatar = form.avatar.data.strip(),
             email = form.email.data.strip(), 
             bio=form.bio.data.strip(),
             password = form.password.data.strip()
@@ -148,25 +140,37 @@ def account():
     return render_template('account.html', title="Account", avatar=avatar)
 
 
+#Save profile picture
+def save_picture(avatar_pic):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(avatar_pic.filename)
+    avatar_fn = random_hex + f_ext
+    avatar_path = os.path.join(app.root_path, 'static/profile_pics', avatar_fn)
+    avatar_pic.save(avatar_path)
+
+    return avatar_fn
+
 
 
 #User account update
 @app.route('/update_account/<id>', methods=['GET', 'POST'])
 @login_required
 def update_account(id):
-    user = models.User.get( models.User.id == id)
+    user_param = int(id)
+    user = models.User.get(models.User.id == user_param)
     avatar = url_for('static', filename='profile_pics/' + current_user.avatar)
 
     form = forms.UpdateAccountForm()
     if form.validate_on_submit():
-        user.first_name = form.first_name.data
-        user.last_name = form.last_name.data
-        user.email = form.email.data
-        user.bio = form.bio.data
-        user.avatar = form.avatar.data
-        
-        user.save()
-
+        if form.avatar.data:
+            picture_file = save_picture(form.avatar.data)
+            user.avatar = picture_file
+            user.first_name = form.first_name.data
+            user.last_name = form.last_name.data
+            user.email = form.email.data
+            user.bio = form.bio.data
+                
+            user.save()
         flash('Your account has been updated', "alert alert-success")
         return redirect(url_for('account'))
 
@@ -270,6 +274,9 @@ def delete_patient_data(id):
     return redirect(url_for('charts'))
 
 
+
+
+
 if __name__ == '__main__':
 # before app runs, we initialize a connection to the models
     models.initialize()
@@ -282,10 +289,9 @@ if __name__ == '__main__':
             email = 'jane@email.com',
             password = 'password',
             bio='About me',
-            avatar = 'avatar',
             admin = True
             )
     except ValueError:
-        pass
+        pass 
 
     app.run(debug=True) 
