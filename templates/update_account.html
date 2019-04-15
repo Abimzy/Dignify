@@ -1,26 +1,24 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="jumbotron text-center">
-        <p>Profile dashboard</p>
-    </div>
 
-    <div class='content-section'>
-        <div class="media img-fluid">
-            <img class="rounded-circle account-img" src="/static/profile_pics/anonymous-sm.jpg">
+    <div class='content-section '>
+        <div class="media jumbotron img-fluid">
+            <img class="rounded-circle account-img" src="{{ avatar }}">
             <div class="media-body">
                 <h2 class="account-heading">{{current_user.first_name}} {{current_user.last_name}}</h2>
                 <p class="text-secondary">{{current_user.email}}</p>
             </div>
         </div>
-        <form method="POST" action="" class="form">
-            <legend class="border-bottom mb-4 pl-3">Profile Update</legend>
+        <legend class="border-bottom mb-4 pl-3">Profile Update</legend>
+        <form method="POST" action="" class="form" enctype="multipart/form-data">
+           
                 {{ form.hidden_tag() }}
-                {{ form.first_name (value=user.first_name) }}
-                {{ form.last_name (value=user.last_name) }}  
-                {{ form.email (value=user.email) }}
-                {{ form.bio (value=user.bio) }}
-                {{ form.avatar (value=user.avatar) }}
+                {{ form.first_name (value=user.first_name, class="form-control form-control-lg") }}
+                {{ form.last_name (value=user.last_name, class="form-control form-control-lg") }}  
+                {{ form.email (value=user.email, class="form-control form-control-lg") }}
+                {{ form.bio (value=user.bio, class="form-control form-control-lg", rows="5") }}
+                {{ form.avatar (value=user.avatar, class="form-control-file") }}
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -28,9 +26,7 @@
                         </div>
                     </div>
                 </div>  
-            </form>
-    </div>
-    
+        </form>    
 
     <style>
 
@@ -38,6 +34,22 @@
             height:10rem;
             width:10rem;
             margin: 15px;
+        }
+
+        form.form {
+            text-align: center;
+            height: 85%vh;
+            }
+        form input {
+            border:  lightgrey 1px solid;
+            border-radius: 5px;
+            margin: 2px;
+            margin-top: 15px;
+            padding: 13px;
+            width: 45%;
+        }
+        #submit {
+            margin-top: 5px;
         }
     </style>
 {% endblock content %}
